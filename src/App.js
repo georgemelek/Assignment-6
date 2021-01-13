@@ -6,6 +6,7 @@ import './App.css';
 function App(){ 
   return (
     <div>
+      
       <div id ='zipHeadDiv'>
         <h1 id = 'TOP'> Zip Code Search </h1>
       </div>

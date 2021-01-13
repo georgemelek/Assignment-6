@@ -2,6 +2,7 @@ import React from 'react'
 const Result = ({locationText, state, estimatedPop, lat, long, totalWages}) => { 
     return (
         <div>
+            
             <div>
                 <h3>{locationText}</h3>
             </div>
