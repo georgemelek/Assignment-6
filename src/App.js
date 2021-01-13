@@ -7,53 +7,53 @@ function App(){
   return (
     <div>
 
-      <div id ='headDiv'>
+      <div id ='zipHeadDiv'>
         <h1 id = 'TOP'> Zip Code Search </h1>
       </div>
       <div id = "form" > 
         <label>
           Zip Code: 
-          <input type = "text" id="userzip" />
+          <input type = "text" id="zip" />
         </label> 
         <button onClick = {printResults} > Search </button>
       </div>
-      <div id='resultDiv'></div>
+      <div id='zipResultsDiv'></div>
 
-      <div id ='head2Div'>
+      <div id ='cityHeadDiv'>
         <h1 id = 'TOP'> City Search </h1>
       </div>
       <div id = "form" > 
         <label>
           City: 
-          <input type = "text" id="usercity" />
+          <input type = "text" id="city" />
         </label> 
         <button onClick = {printCityResults} > Search </button>
       </div>
-        <div id='result2Div'></div>
+        <div id='cityResultsDiv'></div>
 
     </div>
   );
 }
 
 function printCityResults(){
-  const city =document.getElementById("usercity").value.toUpperCase();
+  const city =document.getElementById("city").value.toUpperCase();
   fetch(`http://ctp-zip-api.herokuapp.com/city/${city}`)
   .then(response=>{
     return response.json()
   })
   .then(cities =>{
-    const result2Div = document.getElementById("result2Div")
-    let results2 = []
+    const cityResults = document.getElementById("cityResultsDiv")
+    let cityArray = []
     for(let i=0;i<cities.length;i++){
-      results2[i] = "\n" + cities[i] + "\n";
+      cityArray[i] = "\n" + cities[i] + "\n";
     }
-    ReactDOM.render(results2, result2Div);
+    ReactDOM.render(cityArray, cityResults);
   })
 
 }
 
 function printResults(){ 
-  const zip = document.getElementById('userzip').value
+  const zip = document.getElementById('zip').value
   fetch(`http://ctp-zip-api.herokuapp.com/zip/${zip}`)
   .then(response => { 
     if (response.status !== 200){ 
@@ -62,10 +62,10 @@ function printResults(){
     return response.json()
   })
   .then(zips => { 
-    const resultDiv = document.getElementById('resultDiv')
-    let results = []
+    const zipResultDiv = document.getElementById('zipResultsDiv')
+    let zipsResults = []
     for (let i = 0; i < zips.length ; i++){ 
-      results[i] = <Result key= {zips[i].RecordNumber}
+      zipsResults[i] = <Result key= {zips[i].RecordNumber}
       locationText = {zips[i].LocationText}
       state = {zips[i].State}
       estimatedPop = {zips[i].EstimatedPopulation}
@@ -74,10 +74,7 @@ function printResults(){
       totalWages = {zips[i].TotalWages}
       />
     }
-    ReactDOM.render(results, resultDiv); 
+    ReactDOM.render(zipsResults, zipResultDiv); 
   })
-  // .catch(error => { 
-  //   console.log("error", error)
-  // })
 }
 export default App;
